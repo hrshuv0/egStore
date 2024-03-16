@@ -17,7 +17,7 @@ public class GamesController : BaseApiController
         _gameService = gameService;
     }
 
-    [HttpGet]
+    [HttpGet("/")]
     public async Task<IActionResult> List([FromQuery] GameParams prm)
     {
         var result = await _gameService.LoadAsync(prm.Search!, prm.PageIndex, prm.PageSize);
@@ -27,10 +27,24 @@ public class GamesController : BaseApiController
         return Ok(response);
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        var response = await _gameService.GetAsync(id, null, false);
+
+        return Ok(response);
+    }
+
     [HttpPost("save")]
     public async Task Save(GameSaveVm model)
     {
         await _gameService.SaveAsync(model);
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task Delete(long id)
+    {
+        await _gameService.DeleteAsync(id);
     }
     
     
