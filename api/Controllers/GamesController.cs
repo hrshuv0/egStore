@@ -17,7 +17,7 @@ public class GamesController : BaseApiController
         _gameService = gameService;
     }
 
-    [HttpGet("/")]
+    [HttpGet]
     public async Task<IActionResult> List([FromQuery] GameParams prm)
     {
         var result = await _gameService.LoadAsync(prm.Search!, prm.PageIndex, prm.PageSize);
