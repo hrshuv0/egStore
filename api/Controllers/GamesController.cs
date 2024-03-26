@@ -2,6 +2,7 @@ using api.Specifications;
 using Core.Entities;
 using Core.ViewModel;
 using Framework.Core.Controllers;
+using Framework.Core.Error;
 using Framework.Core.Helpers.Pagination;
 using Framework.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,11 @@ public class GamesController : BaseApiController
     }
 
     [HttpPost("save")]
-    public async Task Save(GameSaveVm model)
+    public async Task<IActionResult> Save(GameSaveVm model)
     {
         await _gameService.SaveAsync(model);
+
+        return Ok(new ApiResponse(200, "Game has been saved successfully"));
     }
     
     [HttpDelete("{id}")]
