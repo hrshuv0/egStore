@@ -1,4 +1,5 @@
 using Framework.Core.Extensions;
+using Framework.Core.Middleware;
 using Framework.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +13,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationCoreServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+builder.Services.AddConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
