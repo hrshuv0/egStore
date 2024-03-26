@@ -23,7 +23,7 @@ public class GamesController : BaseApiController
     {
         var result = await _gameService.LoadAsync(prm.Search!, prm.PageIndex, prm.PageSize);
 
-        var response = new Pagination<Game>(result.CurrentPage, result.PageSize, result.Count, result);
+        var response = new Pagination<Game>(result.CurrentPage, result.PageSize, result.TotalCount, result);
         
         return Ok(response);
     }
